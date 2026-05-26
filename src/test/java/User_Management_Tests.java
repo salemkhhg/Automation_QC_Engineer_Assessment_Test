@@ -1,5 +1,6 @@
 import Pages.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -71,7 +72,7 @@ public class User_Management_Tests {
         Admin_Page adminPage = new Admin_Page(driver);
 
         int afterAddCount = adminPage.getRecordsCount();
-        System.out.printf("▶  After-add record count : %d%n", afterAddCount);
+        System.out.printf("▶  After-add user : %d%n", afterAddCount);
 
         Assert.assertEquals(afterAddCount, initialCount + 1,
                 String.format(
@@ -84,9 +85,24 @@ public class User_Management_Tests {
 
         User_Page userPage = new User_Page(driver);
         userPage.Delete_user();
-
-
+        WebElement successMsg = userPage.getSuccessMessage();
+        Assert.assertTrue(successMsg.isDisplayed());
+        Assert.assertEquals(successMsg.getText(), "Successfully Deleted");
+        userPage.admin_click();
     }
+
+    @Test(testName = "Verify the number of users decreased by 1", priority = 6)
+    public void decreased(){
+        Admin_Page adminPage = new Admin_Page(driver);
+        int afterAddCount = adminPage.getRecordsCount();
+        System.out.printf("▶  After-delete User : %d%n", afterAddCount);
+
+        Assert.assertEquals(afterAddCount, initialCount ,
+                String.format(
+                        "Expected record count to be %d after adding a user, but was %d",
+                        initialCount , afterAddCount));
+    }
+
 
 
 

@@ -16,6 +16,7 @@ public class User_Page extends Base_Page{
     public WebElement username = driver.findElement(By.xpath("//label[normalize-space()='Username']/following::input[1]"));
     public WebElement search_button = driver.findElement(By.xpath("//button[normalize-space()='Search']"));
     public WebElement delete_button = driver.findElement(By.xpath("(//div[@class='oxd-table-card']//button)[1]"));
+    public WebElement AdminMenuItem = driver.findElement(By.xpath("//span[text()='Admin']"));
     public WebElement getConfirmDeleteButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(
@@ -36,5 +37,15 @@ public class User_Page extends Base_Page{
         ));
         delete_button.click();
         getConfirmDeleteButton().click();
+    }
+
+    public WebElement getSuccessMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class,'oxd-toast--success')]//p[normalize-space()='Successfully Deleted']")));
+    }
+
+    public void admin_click(){
+        AdminMenuItem.click();
     }
 }
