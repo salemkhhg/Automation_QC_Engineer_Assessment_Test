@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation QC Engineer Assessment Test">
+    <test name="User Management Tests">
+        <classes>
+            <class name="User_Management_Tests"/>
+        </classes>
+    </test>
+</suite>
