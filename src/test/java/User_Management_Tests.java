@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -21,17 +22,17 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "Navigate and login", priority = 0)
-    public void Login_Page(){
+    public void Navigate_and_login(){
         Login_page login_page = new Login_page(driver);
 
         Assert.assertTrue(login_page.isLoaded(),
-                "Dashboard should be visible after successful login");
+                "login page should be visible after opening the url");
 
         login_page.loginsubmit();
     }
 
     @Test(testName = "navigate to dashboard", priority = 1)
-    public void Dashboard_Page(){
+    public void navigate_to_dashboard(){
         Dashboard_Page dashboardPage = new Dashboard_Page(driver);
 
         Assert.assertTrue(dashboardPage.isLoaded(),
@@ -41,7 +42,7 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "navigate to Admin_page", priority = 2)
-    public void Admin_Page(){
+    public void navigate_to_Admin_page(){
         Admin_Page adminPage = new Admin_Page(driver);
 
         Assert.assertTrue(adminPage.isLoaded(),
@@ -54,7 +55,7 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "navigate to Add_User_page", priority = 3)
-    public void Add_User_pag(){
+    public void navigate_to_Add_User_page(){
 
         Add_User_page addUserPage = new Add_User_page (driver);
 
@@ -67,7 +68,7 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "Verify the number of users increased by 1", priority = 4)
-    public void Admin_page_increased(){
+    public void Verify_the_number_of_users_increased_by_1(){
 
         Admin_Page adminPage = new Admin_Page(driver);
 
@@ -81,7 +82,7 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "Delete User", priority = 5)
-    public void user_Delete(){
+    public void Delete_User(){
 
         User_Page userPage = new User_Page(driver);
         userPage.Delete_user();
@@ -92,7 +93,7 @@ public class User_Management_Tests {
     }
 
     @Test(testName = "Verify the number of users decreased by 1", priority = 6)
-    public void decreased(){
+    public void Verify_the_number_of_users_decreased_by_1(){
         Admin_Page adminPage = new Admin_Page(driver);
         int afterAddCount = adminPage.getRecordsCount();
         System.out.printf("▶  After-delete User : %d%n", afterAddCount);
@@ -101,6 +102,13 @@ public class User_Management_Tests {
                 String.format(
                         "Expected record count to be %d after adding a user, but was %d",
                         initialCount , afterAddCount));
+
     }
+
+    @AfterTest
+    public void close(){
+        driver.close();
+    }
+
 
 }
